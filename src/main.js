@@ -17,6 +17,14 @@ import VueResource from 'vue-resource';
 
 Vue.use(VueRouter);
 Vue.use(VueResource);
+// 设置全局请求的默认根路径
+Vue.http.options.root = '/root';
+// 导入格式化时间的插件
+import moment from 'moment';
+// 定义全局的过滤器
+Vue.filter("dateFormat", function (dataStr, pattern = "YYYY-MM-DD HH:mm:ss") {
+    return moment(dataStr).format(pattern);
+});
 
 Vue.component(Header.name, Header);
 Vue.component(Swipe.name, Swipe);
