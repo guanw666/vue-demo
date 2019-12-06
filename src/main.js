@@ -11,7 +11,7 @@ import VueRouter from 'vue-router';
 // 导入自己的路由模块
 import router from './router.js';
 // 轮播图
-import {Swipe, SwipeItem} from 'mint-ui';
+import {Swipe, SwipeItem, Button} from 'mint-ui';
 // 导入vue-resource
 import VueResource from 'vue-resource';
 
@@ -25,10 +25,10 @@ import moment from 'moment';
 Vue.filter("dateFormat", function (dataStr, pattern = "YYYY-MM-DD HH:mm:ss") {
     return moment(dataStr).format(pattern);
 });
-
 Vue.component(Header.name, Header);
 Vue.component(Swipe.name, Swipe);
 Vue.component(SwipeItem.name, SwipeItem);
+Vue.component(Button.name, Button);
 
 
 let vm = new Vue({

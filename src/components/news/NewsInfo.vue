@@ -1,18 +1,24 @@
 <template>
     <div class="newsinfo-container">
-        <h3 class="title">新闻标题</h3>
+        <h3 class="title">{{newsInfo.title}}</h3>
         <p class="subtitle">
-            <span>发表时间：{{newsInfo.add_time|dateFormat}}</span>
+            <span>发表时间：{{newsInfo.add_time | dateFormat}}</span>
             <span>点击：{{newsInfo.click}}次</span>
         </p>
         <hr>
-        <div class="content"></div>
+        <div class="content">{{newsInfo.content}}</div>
+        <comment-box></comment-box>
     </div>
 </template>
 
 <script>
+    import comment from '../subcomponents/comment.vue';
+
     export default {
         name: "NewsInfo",
+        components: {
+            'comment-box': comment
+        },
         data() {
             return {
                 id: this.$route.params.id,
