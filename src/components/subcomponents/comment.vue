@@ -5,38 +5,48 @@
         <textarea placeholder="请输入要评论的内容(最多200字)" maxlength="200"></textarea>
         <mt-button type="primary" size="large">发表评论</mt-button>
         <div class="cmt-list">
-            <div class="cmt-item">
+            <div class="cmt-item" v-for="(item,i) in comments">
                 <div class="cmt-title">
-                    第1楼&nbsp;&nbsp;用户：匿名用户&nbsp;&nbsp;发表时间：2012-12-12 12:12:12
+                    第{{i+1}}楼&nbsp;&nbsp;用户：{{item.user_name}}&nbsp;&nbsp;发表时间：{{item.add_time|dateFormat}}
                 </div>
                 <div class="cmt-body">
-                    窗前明月光...
-                </div>
-            </div>
-            <div class="cmt-item">
-                <div class="cmt-title">
-                    第1楼&nbsp;&nbsp;用户：匿名用户&nbsp;&nbsp;发表时间：2012-12-12 12:12:12
-                </div>
-                <div class="cmt-body">
-                    窗前明月光...
-                </div>
-            </div>
-            <div class="cmt-item">
-                <div class="cmt-title">
-                    第1楼&nbsp;&nbsp;用户：匿名用户&nbsp;&nbsp;发表时间：2012-12-12 12:12:12
-                </div>
-                <div class="cmt-body">
-                    窗前明月光...
+                    {{item.content?item.content:"此用户很懒..."}}
                 </div>
             </div>
         </div>
-        <mt-button type="danger" size="large" plain>加载更多</mt-button>
+        <mt-button type="danger" size="large" plain @click="getMore">加载更多</mt-button>
     </div>
 </template>
 
 <script>
     export default {
-        name: "comment"
+        name: "comment",
+        data() {
+            return {
+                pageIndex: 1,
+                comments: []
+            }
+        },
+        methods: {
+            getComments() {
+                console.log("newInfo id:" + this.id);
+                console.log("pageIndex:" + this.pageIndex);
+                this.comments = this.comments.concat([
+                    {user_name: "匿名用户", add_time: "2019-04-19T20:09:30.000Z", content: "我来评论啦"},
+                    {user_name: "匿名用户", add_time: "2019-04-19T20:09:30.000Z", content: "aaaa"},
+                    {user_name: "匿名用户", add_time: "2019-04-19T20:09:30.000Z", content: ""},
+                    {user_name: "匿名用户", add_time: "2019-04-19T20:09:30.000Z", content: "12345"}
+                ]);
+            },
+            getMore() {
+                this.pageIndex++;
+                this.getComments();
+            }
+        },
+        created() {
+            this.getComments();
+        },
+        props: ["id"]
     }
 </script>
 

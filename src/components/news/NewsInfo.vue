@@ -7,7 +7,7 @@
         </p>
         <hr>
         <div class="content">{{newsInfo.content}}</div>
-        <comment-box></comment-box>
+        <comment-box :id="id"></comment-box>
     </div>
 </template>
 
