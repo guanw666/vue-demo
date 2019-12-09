@@ -2,8 +2,8 @@
     <div class="cmt-container">
         <h3>发表评论</h3>
         <hr>
-        <textarea placeholder="请输入要评论的内容(最多200字)" maxlength="200"></textarea>
-        <mt-button type="primary" size="large">发表评论</mt-button>
+        <textarea placeholder="请输入要评论的内容(最多200字)" maxlength="200" v-model="msg"></textarea>
+        <mt-button type="primary" size="large" @click="postComments">发表评论</mt-button>
         <div class="cmt-list">
             <div class="cmt-item" v-for="(item,i) in comments">
                 <div class="cmt-title">
@@ -19,12 +19,15 @@
 </template>
 
 <script>
+    import {Toast} from "mint-ui";
+
     export default {
         name: "comment",
         data() {
             return {
                 pageIndex: 1,
-                comments: []
+                comments: [],
+                msg: "",
             }
         },
         methods: {
@@ -41,6 +44,16 @@
             getMore() {
                 this.pageIndex++;
                 this.getComments();
+            },
+            postComments() {
+                if (this.msg.trim().length === 0) {
+                    return Toast("Comment msg can't null!");
+                }
+                console.log("commit comment:" + this.msg.trim());
+                this.comments.unshift(
+                    {user_name: "me", add_time: new Date(), content: this.msg.trim()}
+                );
+                this.msg = "";
             }
         },
         created() {
